@@ -1,0 +1,974 @@
+{
+	"info": {
+		"_postman_id": "fecd52be-505c-41a0-9f33-5764ba029ffd",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29565430"
+	},
+	"item": [
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields for the 'users' array\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.users).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"",
+							"    responseData.users.forEach(function(user) {",
+							"        pm.expect(user).to.have.property('id');",
+							"        pm.expect(user).to.have.property('firstName');",
+							"        pm.expect(user).to.have.property('lastName');",
+							"        pm.expect(user).to.have.property('age');",
+							"        pm.expect(user).to.have.property('gender');",
+							"        pm.expect(user).to.have.property('email');",
+							"        pm.expect(user).to.have.property('phone');",
+							"        pm.expect(user).to.have.property('username');",
+							"        pm.expect(user).to.have.property('password');",
+							"        pm.expect(user).to.have.property('birthDate');",
+							"        pm.expect(user).to.have.property('image');",
+							"        pm.expect(user).to.have.property('bloodGroup');",
+							"        pm.expect(user).to.have.property('height');",
+							"        pm.expect(user).to.have.property('weight');",
+							"        pm.expect(user).to.have.property('eyeColor');",
+							"        pm.expect(user).to.have.property('hair').to.be.an('object');",
+							"        pm.expect(user.hair).to.have.property('color');",
+							"        pm.expect(user.hair).to.have.property('type');",
+							"        pm.expect(user).to.have.property('ip');",
+							"        pm.expect(user).to.have.property('address').to.be.an('object');",
+							"        pm.expect(user.address).to.have.property('address');",
+							"        pm.expect(user.address).to.have.property('city');",
+							"        pm.expect(user.address).to.have.property('state');",
+							"        pm.expect(user.address).to.have.property('stateCode');",
+							"        pm.expect(user.address).to.have.property('postalCode');",
+							"        pm.expect(user.address).to.have.property('coordinates').to.be.an('object');",
+							"        pm.expect(user.address.coordinates).to.have.property('lat');",
+							"        pm.expect(user.address.coordinates).to.have.property('lng');",
+							"        pm.expect(user.address).to.have.property('country');",
+							"        pm.expect(user).to.have.property('macAddress');",
+							"        pm.expect(user).to.have.property('university');",
+							"        pm.expect(user).to.have.property('bank').to.be.an('object');",
+							"        pm.expect(user.bank).to.have.property('cardExpire');",
+							"        pm.expect(user.bank).to.have.property('cardNumber');",
+							"        pm.expect(user.bank).to.have.property('cardType');",
+							"        pm.expect(user.bank).to.have.property('currency');",
+							"        pm.expect(user.bank).to.have.property('iban');",
+							"        pm.expect(user).to.have.property('company').to.be.an('object');",
+							"        pm.expect(user.company).to.have.property('department');",
+							"        pm.expect(user.company).to.have.property('name');",
+							"        pm.expect(user.company).to.have.property('title');",
+							"        pm.expect(user.company).to.have.property('address').to.be.an('object');",
+							"        pm.expect(user.company.address).to.have.property('address');",
+							"        pm.expect(user.company.address).to.have.property('city');",
+							"        pm.expect(user.company.address).to.have.property('state');",
+							"        pm.expect(user.company.address).to.have.property('stateCode');",
+							"        pm.expect(user.company.address).to.have.property('postalCode');",
+							"        pm.expect(user.company.address).to.have.property('coordinates').to.be.an('object');",
+							"        pm.expect(user.company.address.coordinates).to.have.property('lat');",
+							"        pm.expect(user.company.address.coordinates).to.have.property('lng');",
+							"        pm.expect(user.company.address).to.have.property('country');",
+							"        pm.expect(user).to.have.property('ein');",
+							"        pm.expect(user).to.have.property('ssn');",
+							"        pm.expect(user).to.have.property('userAgent');",
+							"        pm.expect(user).to.have.property('crypto').to.be.an('object');",
+							"        pm.expect(user.crypto).to.have.property('coin');",
+							"        pm.expect(user.crypto).to.have.property('wallet');",
+							"        pm.expect(user.crypto).to.have.property('network');",
+							"        pm.expect(user).to.have.property('role');",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format for all users\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.users).to.be.an('array').that.is.not.empty;",
+							"    ",
+							"    responseData.users.forEach(function(user) {",
+							"        pm.expect(user.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Address object is present in each user's details\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.users).to.be.an('array');",
+							"    responseData.users.forEach(function(user) {",
+							"        pm.expect(user.address).to.exist;",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Total field is a non-negative integer\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.total).to.be.a('number');",
+							"  pm.expect(responseData.total).to.be.at.least(0);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user and get tokens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.expect(pm.response.code).to.equal(400);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required Content-Type header set to application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message field is present in the response\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.message).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response does not contain sensitive information\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.not.contain('password');",
+							"    pm.expect(responseData.message).to.not.contain('token');",
+							"    pm.expect(responseData.message).to.not.contain('secret');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"emilys\",\r\n  \"password\": \"emilyspass\",\r\n  \"expiresInMins\": 30\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/user/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get current authenticated user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 401\", function () {",
+							"    pm.expect(pm.response.code).to.equal(401);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required field - message\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.have.property('message');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type header is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response does not contain sensitive information\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.message).to.not.exist;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/user/me",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the user object\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData).to.have.property('id');",
+							"  pm.expect(responseData).to.have.property('firstName');",
+							"  pm.expect(responseData).to.have.property('lastName');",
+							"  pm.expect(responseData).to.have.property('maidenName');",
+							"  pm.expect(responseData).to.have.property('age');",
+							"  pm.expect(responseData).to.have.property('gender');",
+							"  pm.expect(responseData).to.have.property('email');",
+							"  pm.expect(responseData).to.have.property('phone');",
+							"  pm.expect(responseData).to.have.property('username');",
+							"  pm.expect(responseData).to.have.property('password');",
+							"  pm.expect(responseData).to.have.property('birthDate');",
+							"  pm.expect(responseData).to.have.property('image');",
+							"  pm.expect(responseData).to.have.property('bloodGroup');",
+							"  pm.expect(responseData).to.have.property('height');",
+							"  pm.expect(responseData).to.have.property('weight');",
+							"  pm.expect(responseData).to.have.property('eyeColor');",
+							"  pm.expect(responseData).to.have.property('hair');",
+							"  pm.expect(responseData).to.have.property('ip');",
+							"  pm.expect(responseData).to.have.property('address');",
+							"  pm.expect(responseData).to.have.property('macAddress');",
+							"  pm.expect(responseData).to.have.property('university');",
+							"  pm.expect(responseData).to.have.property('bank');",
+							"  pm.expect(responseData).to.have.property('company');",
+							"  pm.expect(responseData).to.have.property('ein');",
+							"  pm.expect(responseData).to.have.property('ssn');",
+							"  pm.expect(responseData).to.have.property('userAgent');",
+							"  pm.expect(responseData).to.have.property('crypto');",
+							"  pm.expect(responseData).to.have.property('role');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.email).to.be.a('string');",
+							"    pm.expect(responseData.email).to.match(/^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)*(\\.[a-z]{2,3})$/);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Hair object is present with expected properties\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.hair).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.hair).to.have.property('color');",
+							"  pm.expect(responseData.hair).to.have.property('type');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Address object is present and contains expected properties\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.address).to.exist;",
+							"",
+							"    const addressProperties = [\"address\", \"city\", \"state\", \"postalCode\", \"country\"];",
+							"    addressProperties.forEach(property => {",
+							"        pm.expect(responseData.address).to.have.property(property);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the users array\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.users).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Users array contains at least one element\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.users).to.be.an('array').that.is.not.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the structure of the user object and nested properties\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.users).to.be.an('array').that.is.not.empty;",
+							"    ",
+							"    responseData.users.forEach(function(user) {",
+							"        pm.expect(user).to.have.property('id').that.is.a('number');",
+							"        pm.expect(user).to.have.property('firstName').that.is.a('string');",
+							"        pm.expect(user).to.have.property('lastName').that.is.a('string');",
+							"        pm.expect(user).to.have.property('maidenName').that.is.a('string');",
+							"        pm.expect(user).to.have.property('age').that.is.a('number');",
+							"        pm.expect(user).to.have.property('gender').that.is.a('string');",
+							"        pm.expect(user).to.have.property('email').that.is.a('string');",
+							"        pm.expect(user).to.have.property('phone').that.is.a('string');",
+							"        pm.expect(user).to.have.property('username').that.is.a('string');",
+							"        pm.expect(user).to.have.property('password').that.is.a('string');",
+							"        pm.expect(user).to.have.property('birthDate').that.is.a('string');",
+							"        pm.expect(user).to.have.property('image').that.is.a('string');",
+							"        pm.expect(user).to.have.property('bloodGroup').that.is.a('string');",
+							"        pm.expect(user).to.have.property('height').that.is.a('number');",
+							"        pm.expect(user).to.have.property('weight').that.is.a('number');",
+							"        pm.expect(user).to.have.property('eyeColor').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.hair).to.be.an('object');",
+							"        pm.expect(user.hair).to.have.property('color').that.is.a('string');",
+							"        pm.expect(user.hair).to.have.property('type').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('ip').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.address).to.be.an('object');",
+							"        pm.expect(user.address).to.have.property('address').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('city').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('state').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('stateCode').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('postalCode').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.address.coordinates).to.be.an('object');",
+							"        pm.expect(user.address.coordinates).to.have.property('lat').that.is.a('number');",
+							"        pm.expect(user.address.coordinates).to.have.property('lng').that.is.a('number');",
+							"        pm.expect(user.address).to.have.property('country').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('macAddress').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('university').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.bank).to.be.an('object');",
+							"        pm.expect(user.bank).to.have.property('cardExpire').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('cardNumber').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('cardType').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('currency').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('iban').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.company).to.be.an('object');",
+							"        pm.expect(user.company).to.have.property('department').that.is.a('string');",
+							"        pm.expect(user.company).to.have.property('name').that.is.a('string');",
+							"        pm.expect(user.company).to.have.property('title').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.company.address).to.be.an('object');",
+							"        pm.expect(user.company.address).to.have.property('address').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('city').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('state').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('stateCode').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('postalCode').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.company.address.coordinates).to.be.an('object');",
+							"        pm.expect(user.company.address.coordinates).to.have.property('lat').that.is.a('number');",
+							"        pm.expect(user.company.address.coordinates).to.have.property('lng').that.is.a('number');",
+							"        pm.expect(user.company.address).to.have.property('country').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('ein').that.is.a('string');",
+							"        pm.expect(user).to.have.property('ssn').that.is.a('string');",
+							"        pm.expect(user).to.have.property('userAgent').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.crypto).to.be.an('object');",
+							"        pm.expect(user.crypto).to.have.property('coin').that.is.a('string');",
+							"        pm.expect(user.crypto).to.have.property('wallet').that.is.a('string');",
+							"        pm.expect(user.crypto).to.have.property('network').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('role').that.is.a('string');",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/search?q=John",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "John"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type header is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Users array is present and not empty\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.users).to.exist.and.to.be.an('array').that.is.not.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the structure and data types of the user object\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.users).to.be.an('array');",
+							"    ",
+							"    responseData.users.forEach(function(user) {",
+							"        pm.expect(user).to.have.property('id').that.is.a('number');",
+							"        pm.expect(user).to.have.property('firstName').that.is.a('string');",
+							"        pm.expect(user).to.have.property('lastName').that.is.a('string');",
+							"        pm.expect(user).to.have.property('maidenName').that.is.a('string');",
+							"        pm.expect(user).to.have.property('age').that.is.a('number');",
+							"        pm.expect(user).to.have.property('gender').that.is.a('string');",
+							"        pm.expect(user).to.have.property('email').that.is.a('string');",
+							"        pm.expect(user).to.have.property('phone').that.is.a('string');",
+							"        pm.expect(user).to.have.property('username').that.is.a('string');",
+							"        pm.expect(user).to.have.property('password').that.is.a('string');",
+							"        pm.expect(user).to.have.property('birthDate').that.is.a('string');",
+							"        pm.expect(user).to.have.property('image').that.is.a('string');",
+							"        pm.expect(user).to.have.property('bloodGroup').that.is.a('string');",
+							"        pm.expect(user).to.have.property('height').that.is.a('number');",
+							"        pm.expect(user).to.have.property('weight').that.is.a('number');",
+							"        pm.expect(user).to.have.property('eyeColor').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.hair).to.be.an('object');",
+							"        pm.expect(user.hair).to.have.property('color').that.is.a('string');",
+							"        pm.expect(user.hair).to.have.property('type').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('ip').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.address).to.be.an('object');",
+							"        pm.expect(user.address).to.have.property('address').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('city').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('state').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('stateCode').that.is.a('string');",
+							"        pm.expect(user.address).to.have.property('postalCode').that.is.a('string');",
+							"        pm.expect(user.address.coordinates).to.be.an('object');",
+							"        pm.expect(user.address.coordinates).to.have.property('lat').that.is.a('number');",
+							"        pm.expect(user.address.coordinates).to.have.property('lng').that.is.a('number');",
+							"        pm.expect(user.address).to.have.property('country').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('macAddress').that.is.a('string');",
+							"        pm.expect(user).to.have.property('university').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.bank).to.be.an('object');",
+							"        pm.expect(user.bank).to.have.property('cardExpire').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('cardNumber').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('cardType').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('currency').that.is.a('string');",
+							"        pm.expect(user.bank).to.have.property('iban').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.company).to.be.an('object');",
+							"        pm.expect(user.company).to.have.property('department').that.is.a('string');",
+							"        pm.expect(user.company).to.have.property('name').that.is.a('string');",
+							"        pm.expect(user.company).to.have.property('title').that.is.a('string');",
+							"        pm.expect(user.company.address).to.be.an('object');",
+							"        pm.expect(user.company.address).to.have.property('address').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('city').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('state').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('stateCode').that.is.a('string');",
+							"        pm.expect(user.company.address).to.have.property('postalCode').that.is.a('string');",
+							"        pm.expect(user.company.address.coordinates).to.be.an('object');",
+							"        pm.expect(user.company.address.coordinates).to.have.property('lat').that.is.a('number');",
+							"        pm.expect(user.company.address.coordinates).to.have.property('lng').that.is.a('number');",
+							"        pm.expect(user.company.address).to.have.property('country').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('ein').that.is.a('string');",
+							"        pm.expect(user).to.have.property('ssn').that.is.a('string');",
+							"        pm.expect(user).to.have.property('userAgent').that.is.a('string');",
+							"        ",
+							"        pm.expect(user.crypto).to.be.an('object');",
+							"        pm.expect(user.crypto).to.have.property('coin').that.is.a('string');",
+							"        pm.expect(user.crypto).to.have.property('wallet').that.is.a('string');",
+							"        pm.expect(user.crypto).to.have.property('network').that.is.a('string');",
+							"        ",
+							"        pm.expect(user).to.have.property('role').that.is.a('string');",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Hair color is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.users).to.be.an('array');",
+							"    ",
+							"    responseData.users.forEach(function(user) {",
+							"        pm.expect(user.hair.color).to.be.a('string').and.to.have.length.above(0);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/filter?key=hair.color&value=Brown",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "hair.color"
+						},
+						{
+							"key": "value",
+							"value": "Brown"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's carts by user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type header is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Carts array and nested objects have correct structure\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.carts).to.be.an('array');",
+							"    ",
+							"    responseData.carts.forEach(function(cart) {",
+							"        pm.expect(cart).to.have.property('id').that.is.a('number');",
+							"        pm.expect(cart).to.have.property('products').that.is.an('array');",
+							"        pm.expect(cart).to.have.property('total').that.is.a('number');",
+							"        pm.expect(cart).to.have.property('discountedTotal').that.is.a('number');",
+							"        pm.expect(cart).to.have.property('userId').that.is.a('number');",
+							"        pm.expect(cart).to.have.property('totalProducts').that.is.a('number');",
+							"        pm.expect(cart).to.have.property('totalQuantity').that.is.a('number');",
+							"        ",
+							"        cart.products.forEach(function(product) {",
+							"            pm.expect(product).to.have.property('id').that.is.a('number');",
+							"            pm.expect(product).to.have.property('title').that.is.a('string');",
+							"            pm.expect(product).to.have.property('price').that.is.a('number');",
+							"            pm.expect(product).to.have.property('quantity').that.is.a('number');",
+							"            pm.expect(product).to.have.property('total').that.is.a('number');",
+							"            pm.expect(product).to.have.property('discountPercentage').that.is.a('number');",
+							"            pm.expect(product).to.have.property('discountedTotal').that.is.a('number');",
+							"            pm.expect(product).to.have.property('thumbnail').that.is.a('string');",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Total value is present and is a non-negative integer\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.have.property('total').that.is.a('number').and.is.at.least(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"TotalProducts and TotalQuantity should be non-negative integers\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.carts).to.be.an('array');",
+							"    ",
+							"    responseData.carts.forEach(function(cart) {",
+							"        pm.expect(cart.totalProducts).to.be.a('number').and.to.be.at.least(0);",
+							"        pm.expect(cart.totalQuantity).to.be.a('number').and.to.be.at.least(0);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/6/carts",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"6",
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's posts by user id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/5/posts",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"5",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user's todos by user id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/5/todos",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"5",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Muhammad\",\r\n  \"lastName\": \"Ovi\",\r\n  \"age\": 250,\r\n  \"email\": \"muhammad.ovi@example.com\",\r\n  \"gender\": \"male\",\r\n  \"phone\": \"123-456-7890\",\r\n  \"address\": {\r\n    \"street\": \"123 Example St\",\r\n    \"city\": \"Sample City\",\r\n    \"state\": \"Sample State\",\r\n    \"zip\": \"12345\"\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/users/add",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"lastName\": \"Owais\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/users/2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the user object\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.id).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.firstName).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.lastName).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.age).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.gender).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.email).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.phone).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.username).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.password).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.birthDate).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.image).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.bloodGroup).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.height).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.weight).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.eyeColor).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.hair).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.hair.color).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.hair.type).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.ip).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.address).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.address.address).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.address.city).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.address.state).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.address.stateCode).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.address.postalCode).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.address.coordinates).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.address.coordinates.lat).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.address.coordinates.lng).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.address.country).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.macAddress).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.university).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.bank).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.bank.cardExpire).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.bank.cardNumber).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.bank.cardType).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.bank.currency).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.bank.iban).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.company.department).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.name).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.title).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.address).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.company.address.address).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.address.city).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.address.state).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.address.stateCode).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.address.postalCode).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.company.address.coordinates).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.company.address.coordinates.lat).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.company.address.coordinates.lng).to.exist.and.to.be.a('number');",
+							"  pm.expect(responseData.company.address.country).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.ein).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.ssn).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.userAgent).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.crypto).to.exist.and.to.be.an('object');",
+							"  pm.expect(responseData.crypto.coin).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.crypto.wallet).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.crypto.network).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.role).to.exist.and.to.be.a('string');",
+							"  pm.expect(responseData.isDeleted).to.exist.and.to.be.a('boolean');",
+							"  pm.expect(responseData.deletedOn).to.exist.and.to.be.a('string');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Address and company objects are present with expected fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.address).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.address).to.have.property('address');",
+							"    pm.expect(responseData.address).to.have.property('city');",
+							"    pm.expect(responseData.address).to.have.property('state');",
+							"    pm.expect(responseData.address).to.have.property('stateCode');",
+							"    pm.expect(responseData.address).to.have.property('postalCode');",
+							"    pm.expect(responseData.address.coordinates).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.address.coordinates).to.have.property('lat');",
+							"    pm.expect(responseData.address.coordinates).to.have.property('lng');",
+							"",
+							"    pm.expect(responseData.company).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.company).to.have.property('department');",
+							"    pm.expect(responseData.company).to.have.property('name');",
+							"    pm.expect(responseData.company).to.have.property('title');",
+							"    pm.expect(responseData.company.address).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.company.address).to.have.property('address');",
+							"    pm.expect(responseData.company.address).to.have.property('city');",
+							"    pm.expect(responseData.company.address).to.have.property('state');",
+							"    pm.expect(responseData.company.address).to.have.property('stateCode');",
+							"    pm.expect(responseData.company.address).to.have.property('postalCode');",
+							"    pm.expect(responseData.company.address.coordinates).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.company.address.coordinates).to.have.property('lat');",
+							"    pm.expect(responseData.company.address.coordinates).to.have.property('lng');",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
