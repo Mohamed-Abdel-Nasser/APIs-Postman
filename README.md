@@ -1,6 +1,10 @@
 # DummyJSON API Postman Collection
 
 This repository contains a **Postman** collection for testing the **DummyJSON** API. The API provides mock data for products, users, and carts, making it a great resource for API learning and practice.
+![alt text](image.png)
+# Restful Booker
+
+![DummyJSON API Logo]() 
 
 ## Table of Contents
 - [Introduction](#introduction)
